@@ -1,5 +1,3 @@
-
-
 var knex = require('knex')({
   client: 'mysql',
   connection: {
@@ -11,32 +9,27 @@ var knex = require('knex')({
   }
 });
 
-var fuzzy = require('fuzzy');
 var Q = require("Q");
-var Levenshtein = require("levenshtein");
-var natural = require("natural");
-var stringSimilarity = require('string-similarity');
 
-// When the app starts
-var express = require('express');
-var bodyParser = require('body-parser');
+var Levenshtein         = require('levenshtein');
+var natural             = require('natural');
+var stringSimilarity    = require('string-similarity');
+var PythonShell         = require('python-shell');
+
+var express             = require('express');
+var bodyParser          = require('body-parser');
+var bookshelf           = require('bookshelf')(knex);
+var static              = require('express-static');
+var path                = require('path');
+
 var app = express();
-var bookshelf = require('bookshelf')(knex);
-var static = require("express-static");
-var path    = require('path');      // Also loading the path module
-
-var PythonShell = require('python-shell');
-
-// parse application/json
 app.use(bodyParser());
 
 app.set('view engine', 'jade');
 app.set('bookshelf', bookshelf);
 
-// The static middleware must come after the sass middleware
-app.use(express.static( path.join( __dirname, 'public' ) ) );
+app.use(express.static(path.join(__dirname, 'public')));
 
-// elsewhere, to use the bookshelf client:
 var bookshelf = app.get('bookshelf');
 
 var Document = bookshelf.Model.extend({
@@ -49,10 +42,6 @@ app.get("/", function(req, res) {
 			res.render('index', { title: 'Hey', message: 'Hello there!', documents: collection});
 		});
 });
-
-//select id, `match` from documents where `match` > ((select `match` from documents where id = 26) - 10) and `match` < ((select `match` from documents where id = 26) + 10);
-
-//select id, ratio, partialRatio, tokenSortRatio, tokenSetRatio from documents where   ratio between (select ratio from documents where id=50)-2 and (select ratio from documents where id=50)+2 and partialRatio between (select partialRatio from documents where id=50)-2 and (select partialRatio from documents where id=50)+2 and tokenSortRatio between (select tokenSortRatio from documents where id=50)-2 and (select tokenSortRatio from documents where id=50)+2 and tokenSetRatio between (select tokenSetRatio from documents where id=50)-2 and (select tokenSetRatio from documents where id=50)+2;
 
 app.get("/form", function(req, res) {
   Document.fetchAll()
@@ -94,10 +83,7 @@ app.get("/documents/:id/delete", function(req, res) {
 });
 
 var server = app.listen(3000, function () {
-
-  var host = server.address().address
-  var port = server.address().port
-
-  console.log('Example app listening at http://%s:%s', host, port)
-
-})
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('Example app listening at http://%s:%s', host, port);
+});

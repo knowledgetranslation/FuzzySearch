@@ -13,7 +13,6 @@
     "bookshelf": "^0.7.9",
     "express": "^4.12.3",
     "express-static": "^1.0.3",
-    "fuzzy": "^0.1.0",
     "jade": "^1.9.2",
     "knex": "^0.7.6",
     "levenshtein": "^1.0.5",
