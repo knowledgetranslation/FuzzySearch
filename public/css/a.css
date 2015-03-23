@@ -1,0 +1,29 @@
+body {
+  width: 80%;
+  margin: 0 auto;
+}
+td {
+  vertical-align: top;
+  padding-top: 1em;
+}
+td+td {
+  padding-left: 2em;
+}
+thead {
+  font-weight: bold;
+}
+#content {
+  margin-top: 2em;
+}
+p.add {
+  width: 100%;
+  text-align: center;
+}
+p.control {
+  width: 60%;
+  margin: 0 auto;
+  text-align:center;
+  margin-bottom: 3em;
+  font-style: italic;
+  font-size: 1.2em;
+}

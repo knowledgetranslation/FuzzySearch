@@ -1,0 +1,41 @@
+extends layouts/default
+include mixins
+
+block head
+  link(href="/bower_components/bootstrap/dist/css/bootstrap.css", rel='stylesheet')
+  link(href="/css/a.css", rel='stylesheet')
+  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+
+block content
+  p.control It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+  p.add
+    a(href="/form", class="btn btn-default", role="button") Add document to library
+  table(width="100%", id="matches")
+    thead
+      tr
+        td Title
+        td Body
+        td Simple Ratio
+        td Partial Ratio
+        td Token Sort Ratio
+        td Token Set Ratio
+        td Match
+        td Distance
+        td Jaro
+        td Similarity
+        td
+    tbody
+    each document in documents.models
+      tr
+        td= document.get("title")
+        td= document.get("body")
+        td= document.get("ratio")
+        td= document.get("partialRatio")
+        td= document.get("tokenSortRatio")
+        td= document.get("tokenSetRatio")
+        td= document.get("match")
+        td= document.get("distance")
+        td= document.get("jaro")
+        td= document.get("similarity")
+        td
+          a(href="/documents/" + document.get("id") + "/delete") Delete

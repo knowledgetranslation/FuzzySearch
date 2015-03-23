@@ -1,0 +1,21 @@
+extends layouts/default
+include mixins
+
+block head
+  link(href="/bower_components/bootstrap/dist/css/bootstrap.css", rel='stylesheet')
+  link(href="/css/a.css", rel='stylesheet')
+  script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js")
+
+block content
+  form(action="documents", method="post")
+    legend
+      span Enter a document
+    ul
+      li
+        label(for="title") Title
+          input(id="title", name="title", type="text")
+      li
+        label(for="body") Title
+          textarea(id="body", name="body")
+      li
+        input(id="submit", name="submit", type="submit", value="Submit")
