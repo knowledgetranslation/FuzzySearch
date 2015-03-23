@@ -9,7 +9,7 @@ var knex = require('knex')({
   }
 });
 
-var Q = require("Q");
+var Q                   = require("Q");
 
 var Levenshtein         = require('levenshtein');
 var natural             = require('natural');
@@ -22,13 +22,16 @@ var bookshelf           = require('bookshelf')(knex);
 var static              = require('express-static');
 var path                = require('path');
 
-var app = express();
-app.use(bodyParser());
+var app                 = express();
 
+/* CONFIG */
+
+app.use(bodyParser());
 app.set('view engine', 'jade');
 app.set('bookshelf', bookshelf);
-
 app.use(express.static(path.join(__dirname, 'public')));
+
+/* ORM */
 
 var bookshelf = app.get('bookshelf');
 
@@ -36,11 +39,13 @@ var Document = bookshelf.Model.extend({
   tableName: 'documents'
 });
 
+/* ROUTES */
+
 app.get("/", function(req, res) {
-	Document.fetchAll()
-		.then(function(collection) {
-			res.render('index', { title: 'Hey', message: 'Hello there!', documents: collection});
-		});
+  Document.fetchAll()
+    .then(function(collection) {
+      res.render('index', { title: 'Hey', message: 'Hello there!', documents: collection});
+    });
 });
 
 app.get("/form", function(req, res) {
